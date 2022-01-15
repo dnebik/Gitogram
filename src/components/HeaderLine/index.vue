@@ -15,7 +15,7 @@
 
 <script>
 import AppIcon from '@/components/App/AppIcon';
-import AppAvatar from '@/components/AppAvatar';
+import AppAvatar from '@/components/App/AppAvatar';
 
 export default {
   name: 'HeaderLine',

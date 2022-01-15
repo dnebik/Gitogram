@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import AppAvatar from '@/components/AppAvatar';
+import AppAvatar from '@/components/App/AppAvatar';
 
 export default {
   name: 'AppStory',
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "src/assets/styles/sizes";
+@import "../../../assets/styles/sizes";
 
 .user-story {
   display: flex;

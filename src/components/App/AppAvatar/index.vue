@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "src/assets/styles/colors";
+@import "../../../assets/styles/colors";
 .avatar {
   aspect-ratio: 1 / 1;
   height: 100%;

@@ -25,9 +25,15 @@ export default {
 <style scoped lang="scss">
 @import "src/assets/styles/colors";
 
+$marginContent: 32px;
+
 .header {
   background-color: map-get($colors, lightgray);
   overflow: auto;
-  box-shadow: 0 0.33px 0 map-get($colors, darkgray);
+  box-shadow: 0 0.5px 0 map-get($colors, darkgray);
+
+  &__content {
+    margin-bottom: $marginContent;
+  }
 }
 </style>

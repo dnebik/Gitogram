@@ -1,14 +1,17 @@
 <template>
   <div class="home">
-    <the-header />
+    <the-header>
+      <follow-line/>
+    </the-header>
   </div>
 </template>
 
 <script>
 import TheHeader from '@/components/TheHeader';
+import FollowLine from '@/components/FollowLine';
 
 export default {
   name: 'Home',
-  components: { TheHeader },
+  components: { FollowLine, TheHeader },
 };
 </script>

@@ -30,7 +30,8 @@ export default {
   methods: {
     async load_svg() {
       try {
-        this.svg = (await import(/* webpackMode: "eager" */ `./svg/${this.$refs.slot.textContent}.svg`))?.default;
+        const text = String(this.$refs.slot.textContent).replaceAll(' ', '');
+        this.svg = (await import(/* webpackMode: "eager" */ `./svg/${text}.svg`))?.default;
       } catch (e) {
         console.log(e.message);
       }

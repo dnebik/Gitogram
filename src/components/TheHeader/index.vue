@@ -2,8 +2,9 @@
   <header class="header">
     <div class="container">
       <div class="header__top-line">
-        <span class="header-logo">Gitogram /</span>
-        <app-icon>home</app-icon>
+        <slot name="header">
+          <header-line />
+        </slot>
       </div>
       <div class="header__content" v-if="$slots.default">
         <slot />
@@ -13,19 +14,20 @@
 </template>
 
 <script>
-import AppIcon from '@/components/App/AppIcon';
+import HeaderLine from '@/components/HeaderLine';
 
 export default {
   name: 'TheHeader',
-  components: { AppIcon },
+  components: { HeaderLine },
 };
 </script>
 
 <style scoped lang="scss">
+@import "src/assets/styles/colors";
+
 .header {
-  &__top-line {
-    display: flex;
-    justify-content: space-between;
-  }
+  background-color: map-get($colors, lightgray);
+  overflow: auto;
+  box-shadow: 0 0.33px 0 map-get($colors, darkgray);
 }
 </style>

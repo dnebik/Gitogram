@@ -1,5 +1,7 @@
 module.exports = {
   chainWebpack: (config) => {
+    config.devServer.disableHostCheck(true);
+
     config.resolve.extensions
       .clear()
       .add('.vue')

@@ -68,7 +68,7 @@ export default {
 
   &__ring {
     height: 100%;
-    padding: 6px;
+    padding: 5%;
     border: 2px solid map-get($colors, purple);
     border-radius: 100%;
     overflow: hidden;

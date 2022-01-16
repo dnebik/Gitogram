@@ -1,7 +1,9 @@
 @import "./font";
+@import "./colors";
 html {
   height: 100vh;
   font-family: 'Inter', sans-serif;
+  color: map-get($colors, black);
 }
 
 body {

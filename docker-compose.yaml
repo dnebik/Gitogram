@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  gitogram:
+    build:
+      dockerfile: ./build/Dockerfile
+      context: .
+    restart: always
+    ports:
+      - published: 8080
+        host_ip: 0.0.0.0
+        target: 80

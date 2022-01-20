@@ -18,6 +18,7 @@ export default {
   },
   async mounted() {
     await this.load_svg();
+    console.log(this.$el);
   },
   computed: {
     svgSize() {
@@ -31,7 +32,7 @@ export default {
     async load_svg() {
       try {
         const text = String(this.$refs.slot.textContent).replaceAll(' ', '');
-        this.svg = (await import(/* webpackMode: "eager" */ `./svg/${text}.svg`))?.default;
+        this.svg = (await import(/* webpackMode: "eager" */ `@/components/App/AppIcon/svg/${text}.svg`))?.default;
       } catch (e) {
         console.log(e.message);
       }

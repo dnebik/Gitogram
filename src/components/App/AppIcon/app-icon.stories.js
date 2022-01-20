@@ -1,5 +1,8 @@
 import AppIcon from './index';
 
+const files = require.context('./svg/', false);
+console.log(files);
+
 export default {
   title: 'AppIcon',
   component: { AppIcon },

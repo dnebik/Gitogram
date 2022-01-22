@@ -18,7 +18,6 @@ export default {
   },
   async mounted() {
     await this.load_svg();
-    console.log(this.$el);
   },
   computed: {
     svgSize() {

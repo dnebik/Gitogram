@@ -1,4 +1,4 @@
-version: "3"
+version: "2.3"
 
 services:
   gitogram:
@@ -8,5 +8,8 @@ services:
     restart: always
     ports:
       - published: 8080
-        host_ip: 0.0.0.0
+#        host_ip: 0.0.0.0
         target: 80
+      - published: 8081
+#        host_ip: 0.0.0.0
+        target: 81

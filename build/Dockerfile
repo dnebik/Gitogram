@@ -9,6 +9,7 @@ RUN npm i
 ADD . .
 
 RUN npm run build
+RUN npm run build-storybook
 
 FROM node:14-buster
 
@@ -22,7 +23,8 @@ ADD package.json ./
 
 COPY --from=builder ./app/node_modules ./node_modules/
 COPY --from=builder ./app/dist ./dist/
+COPY --from=builder ./app/storybook-static ./storybook-static/
 
 EXPOSE 80
 
-CMD ["serve", "-s", "/app/dist", "-l", "80"]
+CMD ["sh","-c","serve /app/dist -l 80 & serve /app/storybook-static -l 81"]

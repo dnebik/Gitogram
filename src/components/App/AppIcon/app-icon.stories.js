@@ -20,11 +20,13 @@ const template = (args) => ({
 
 template.argTypes = {
   icon: {
+    name: 'Иконка',
+    type: { name: 'string', required: false },
     control: {
       type: 'select',
       options: files,
-      selected: files[0],
     },
+    defaultValue: files[0],
   },
 };
 

@@ -20,6 +20,7 @@ const template = (args) => ({
 
 template.argTypes = {
   isFollow: {
+    defaultValue: true,
     control: {
       type: 'boolean',
     },

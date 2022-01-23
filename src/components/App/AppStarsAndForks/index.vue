@@ -24,7 +24,7 @@ export default {
   name: 'AppStarsAndForks',
   components: { AppIcon },
   props: {
-    stars: { type: Number, required: true },
+    stars: { type: String, required: true },
     forks: { type: Number, required: true },
   },
 };

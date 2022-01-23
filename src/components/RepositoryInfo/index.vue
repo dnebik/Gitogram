@@ -6,7 +6,7 @@
       Assumenda beatae esse illum itaque minima nam qui quia quos recusandae? Aliquam consectetur
       eum excepturi, laborum magnam molestiae quasi saepe tenetur unde?
     </div>
-    <app-stars-and-forks class="repository-info__stars-and-forks" stars="10k" forks="4" />
+    <app-stars-and-forks class="repository-info__stars-and-forks" stars="10k" :forks="4" />
   </app-sheet>
 </template>
 

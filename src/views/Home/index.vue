@@ -14,7 +14,9 @@ import WallPosts from '@/components/WallPosts';
 
 export default {
   name: 'Home',
-  components: { WallPosts, FollowLine, TheHeader },
+  components: {
+    WallPosts, FollowLine, TheHeader,
+  },
 };
 </script>
 

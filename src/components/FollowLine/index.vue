@@ -11,8 +11,11 @@
 <script src="./index.js"/>
 
 <style scoped lang="scss">
+@use "sass:math";
+
 @import "src/assets/styles/sizes";
 @import "src/assets/styles/colors";
+
 .story-line {
   position: relative;
   overflow: auto;
@@ -42,7 +45,7 @@
       content: '';
       display: block;
       height: 100%;
-      width: $storyWidth / 1.5;
+      width: math.div($storyWidth, 1.5);
       background: linear-gradient(90deg, map-get($colors, lightgray) 30%, rgba(0, 0, 0, 0));
     }
   }

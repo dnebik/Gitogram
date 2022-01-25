@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import requests from '@/plugins/requests';
 import App from './App.vue';
 import router from './router';
-import store from './store';
+import createStore from './store';
 
 /* eslint-disable */
 import('normalize.css');
@@ -11,7 +11,7 @@ import('@/assets/styles/main.scss');
 
 const app = createApp(App);
 
-app.use(store)
+app.use(createStore(app))
   .use(router)
   .use(requests)
   .mount('#app');

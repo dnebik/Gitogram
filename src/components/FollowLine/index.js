@@ -1,5 +1,5 @@
 import AppStory from '@/components/App/AppStory';
-import moment from 'moment';
+import { mapState } from 'vuex';
 
 export default {
   name: 'FollowLine',
@@ -13,23 +13,14 @@ export default {
   },
   async mounted() {
     this.checkShadows();
-    await this.loadPopularRepos();
+    await this.$store.dispatch('repos/load');
+  },
+  computed: {
+    ...mapState({
+      repos: (state) => state.repos,
+    }),
   },
   methods: {
-    async loadPopularRepos() {
-      const date = moment()
-        .add(-1, 'w')
-        .format('YYYY-MM-DD');
-      const { data } = await this.$api.get('/search/repositories', {
-        params: {
-          sort: 'stars',
-          q: `language:javascript created:>=${date}`,
-          per_page: 10,
-          page: this.page++,
-        },
-      });
-      console.log(data);
-    },
     onScroll() {
       this.checkShadows();
     },

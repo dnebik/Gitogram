@@ -19,7 +19,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'import/extensions': 'off',
     'prefer-spread': 'off',
-    'no-plusplus': 'off'
+    'no-plusplus': 'off',
+    'import/no-webpack-loader-syntax': 'off'
   },
   overrides: [
     {

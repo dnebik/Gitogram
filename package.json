@@ -12,12 +12,12 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0",
     "axios": "^0.25.0",
+    "core-js": "^3.6.5",
     "moment": "^2.29.1",
     "normalize.css": "^8.0.1",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
@@ -42,11 +42,11 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^7.0.0",
     "node-sass": "^4.12.0",
+    "sass": "^1.49.0",
     "sass-loader": "^8.0.2",
     "svg-inline-loader": "^0.8.2",
     "typescript": "~3.9.3",
     "vue-jest": "^5.0.0-0",
-    "sass": "^1.49.0",
     "vue-loader": "^16.8.3"
   }
 }

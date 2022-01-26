@@ -8,7 +8,7 @@
     <div :class="['avatar__ring', { 'avatar__ring--hidden': withoutLine }]">
       <img
         class="avatar__image"
-        :src="require('@/assets/img/avatar/avatar_1.png')"
+        :src="avatarImage"
         alt="username avatar"
       >
     </div>
@@ -21,7 +21,7 @@
   >
     <img
       class="avatar__image"
-      :src="require('@/assets/img/avatar/avatar_1.png')"
+      :src="avatarImage"
       alt="username avatar"
     >
   </button>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import baseImage from '@/assets/img/avatar/avatar_1.png';
+
 export default {
   name: 'AppAvatar',
   emits: ['click'],
@@ -36,6 +38,7 @@ export default {
     isButton: { type: Boolean, default: false },
     // username: { type: String, required: true },
     withoutLine: { type: Boolean, default: false },
+    avatarImage: { type: String, default: baseImage },
   },
   computed: {
     link() {
@@ -78,6 +81,7 @@ export default {
   &__image {
     object-fit: contain;
     height: 100%;
+    border-radius: 100%;
   }
 }
 </style>

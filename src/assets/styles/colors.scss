@@ -12,3 +12,17 @@ $colors: (
 );
 
 $skeleton-gradient: linear-gradient(90deg, #D9D9D9 0%, #EAEAEA 100%);
+
+:export {
+  white: map-get($colors, white);
+  lightgray: map-get($colors, lightgray);
+  gray: map-get($colors, gray);
+  darkgray: map-get($colors, darkgray);
+  green: map-get($colors, green);
+  black: map-get($colors, black);
+  purple: map-get($colors, purple);
+  starsAndForksLabelBG: map-get($colors, starsAndForksLabelBG);
+  starsAndForksValueBG: map-get($colors, starsAndForksValueBG);
+  starsAndForksBorder: map-get($colors, starsAndForksBorder);
+  skeleton-gradient: $skeleton-gradient;
+}

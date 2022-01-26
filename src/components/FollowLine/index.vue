@@ -1,30 +1,50 @@
 <template>
   <div class="story-line" @scroll="onScroll">
-    <div class="story-line__shadow story-line__shadow--left" ref="shadowLeft"/>
-    <div class="story-line__stories-wrapper">
-      <app-story v-for="(username, index) in users" :key="index" :username="username" />
-    </div>
-    <div class="story-line__shadow story-line__shadow--right" ref="shadowRight"/>
+    <template v-if="repos.data.length > 0" >
+      <div class="story-line__shadow story-line__shadow--left" ref="shadowLeft"/>
+      <div class="story-line__stories-wrapper">
+        <app-story
+          v-for="(repo, index) in repos.data"
+          :key="index"
+          :username="repo.owner.login"
+          :avatar-image="repo.owner.avatar_url"
+        />
+        <div class="story-line__loader" ref="spinner">
+          <app-icon class="story-line__loader__icon" :stroke="colors.purple">
+            spinner
+          </app-icon>
+        </div>
+      </div>
+      <div class="story-line__shadow story-line__shadow--right" ref="shadowRight"/>
+    </template>
   </div>
 </template>
 
 <script>
 import AppStory from '@/components/App/AppStory';
 import { mapState } from 'vuex';
+import AppIcon from '@/components/App/AppIcon';
+import colors from '@/assets/styles/colors.scss';
 
 export default {
   name: 'FollowLine',
-  components: { AppStory },
+  components: { AppIcon, AppStory },
   data() {
     return {
-      users: ['John', 'Mike', 'Andrew', 'Camille Astros', 'Piter', 'Can', 'Dielf', 'San', 'Anderson', 'Wilem', 'Sallie'],
       shadowVisibleRange: 20,
-      page: 1,
+      colors,
     };
   },
   async mounted() {
-    this.checkShadows();
     await this.$store.dispatch('repos/load');
+    if (this.repos.data.length > 0) {
+      await this.$nextTick(() => {
+        this.checkShadows();
+
+        const observer = new IntersectionObserver(this.observerHandler, { rootMargin: '100px' });
+        observer.observe(this.$refs.spinner);
+      });
+    }
   },
   computed: {
     ...mapState({
@@ -32,6 +52,11 @@ export default {
     }),
   },
   methods: {
+    async observerHandler(event) {
+      if (event[0].isIntersecting) {
+        await this.$store.dispatch('repos/load');
+      }
+    },
     onScroll() {
       this.checkShadows();
     },
@@ -61,10 +86,16 @@ export default {
   position: relative;
   overflow: auto;
   display: flex;
+  min-height: 120px;
 
   &__stories-wrapper {
     display: flex;
     gap: 31px;
+  }
+
+  &__loader {
+    display: flex;
+    align-items: center;
   }
 
   &__shadow {

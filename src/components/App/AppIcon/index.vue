@@ -3,12 +3,11 @@
     <div v-show="false" ref="slot" >
       <slot />
     </div>
-    <div v-html="svg" />
+    <div class="icon__wrapper" v-html="svg" ref="wrapper" />
   </div>
 </template>
 
 <script src="./index.js" />
 
-<style scoped>
-
+<style scoped lang="scss">
 </style>

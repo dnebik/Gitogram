@@ -1,6 +1,6 @@
 <template>
   <div class="user-story">
-    <app-avatar class="user-story__avatar" />
+    <app-avatar class="user-story__avatar" :avatar-image="avatarImage" />
     <span class="user-story__username">{{ username }}</span>
   </div>
 </template>
@@ -13,6 +13,7 @@ export default {
   components: { AppAvatar },
   props: {
     username: { type: String, required: true },
+    avatarImage: { type: String, required: true },
   },
 };
 </script>

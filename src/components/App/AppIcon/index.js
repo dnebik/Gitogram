@@ -25,7 +25,7 @@ export default {
     svgSize() {
       if (this.big) { return `${sizes.big}px`; }
       if (this.small) { return `${sizes.small}px`; }
-      if (this.size) { return `${this.small}px`; }
+      if (this.size) { return `${this.size}px`; }
       return `${sizes.normal}px`;
     },
     styles() {

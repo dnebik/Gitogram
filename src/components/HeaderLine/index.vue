@@ -24,16 +24,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$marginLine: 42px;
-$heightLine: 40px;
+@import "src/assets/styles/sizes";
 
 .line {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: $heightLine;
-  margin-top: $marginLine;
-  margin-bottom: $marginLine;
+  height: $heightHeadLine;
+  margin-top: $marginHeadLine;
+  margin-bottom: $marginHeadLine;
 
   &__logo {
     height: 100%;

@@ -6,6 +6,11 @@ const routes = [
     name: 'home',
     component: () => import('@/views/Home'),
   },
+  {
+    path: '/stories',
+    name: 'stories',
+    component: () => import('@/views/Stories'),
+  },
 ];
 
 const router = createRouter({

@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header" :class="{ 'header--dark': dark }">
     <div class="container">
       <div class="header__top-line">
         <slot name="header">
@@ -19,6 +19,9 @@ import HeaderLine from '@/components/HeaderLine';
 export default {
   name: 'TheHeader',
   components: { HeaderLine },
+  props: {
+    dark: { type: Boolean, default: false },
+  },
 };
 </script>
 
@@ -28,9 +31,15 @@ export default {
 $marginContent: 32px;
 
 .header {
-  background-color: map-get($colors, lightgray);
+  &:not(&--dark) {
+    background-color: map-get($colors, lightgray);
+    box-shadow: 0 0.5px 0 map-get($colors, darkgray);
+  }
+  &--dark {
+    background-color: map-get($colors, darkBG);
+  }
+
   overflow: auto;
-  box-shadow: 0 0.5px 0 map-get($colors, darkgray);
 
   &__content {
     margin-bottom: $marginContent;

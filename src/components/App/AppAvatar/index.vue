@@ -8,8 +8,9 @@
     <div :class="['avatar__ring', { 'avatar__ring--hidden': withoutLine }]">
       <img
         class="avatar__image"
-        :src="avatarImage"
+        :src="require('@/assets/img/avatar/avatar-placeholder.jpg')"
         alt="username avatar"
+        ref="img"
       >
     </div>
   </router-link>
@@ -36,7 +37,6 @@ export default {
   emits: ['click'],
   props: {
     isButton: { type: Boolean, default: false },
-    // username: { type: String, required: true },
     withoutLine: { type: Boolean, default: false },
     avatarImage: { type: String, default: baseImage },
   },
@@ -48,17 +48,36 @@ export default {
   },
   data() {
     return {
-
+      observer: null,
     };
+  },
+  mounted() {
+    this.$nextTick(this.startObserve);
+  },
+  unmounted() {
+    this.observer.disconnect();
+  },
+  methods: {
+    startObserve() {
+      this.observer = new IntersectionObserver(this.observerHandler, { rootMargin: '100px' });
+      this.observer.observe(this.$el);
+    },
+    observerHandler(event) {
+      if (event[0].isIntersecting) {
+        this.$refs.img.src = this.avatarImage;
+        this.observer.disconnect();
+      }
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-@import "../../../assets/styles/colors";
+@import "src/assets/styles/colors";
 .avatar {
   aspect-ratio: 1 / 1;
   height: 100%;
+  overflow: hidden;
 
   &__action {
     @mixin action {

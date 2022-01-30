@@ -70,12 +70,18 @@ export default {
     async loadReadme({ commit, state }, { index }) {
       const repoName = state.data[index].name;
       const ownerLogin = state.data[index].owner.login;
-      const { data } = await this.$app.$api.get(`/repos/${ownerLogin}/${repoName}/readme`, {
-        headers: {
-          accept: 'application/vnd.github.v3.html+json',
-        },
-      });
-      commit('setReadme', { readme: data, index });
+      try {
+        const { data } = await this.$app.$api.get(`/repos/${ownerLogin}/${repoName}/readme`, {
+          headers: {
+            accept: 'application/vnd.github.v3.html+json',
+          },
+        });
+        commit('setReadme', { readme: data, index });
+      } catch (e) {
+        if (e?.response.status === 404) {
+          commit('setReadme', { readme: 'Readme отсутствует', index });
+        }
+      }
     },
   },
 };

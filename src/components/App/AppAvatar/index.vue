@@ -106,8 +106,8 @@ export default {
     }
   }
 
-  :hover {
-    &__ring {
+  &:hover {
+    .avatar__ring {
       border: 2px solid transparent !important;
     }
   }

@@ -87,9 +87,12 @@ export default {
     },
     change() {
       const selected = this.repos.data[this.storySelected];
-      if (selected && !selected.readme) {
-        this.loadReadme();
-      }
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        if (selected && !selected.readme) {
+          this.loadReadme();
+        }
+      }, 500);
     },
     loadReadme() {
       this.$store.dispatch('repos/loadReadme', { index: this.storySelected });

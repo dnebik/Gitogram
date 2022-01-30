@@ -8,7 +8,11 @@
         @loaded="$emit('change')"
       />
       <div class="story-item__header__profile">
-        <app-avatar class="story-item__header__profile__avatar" :avatar-image="avatarImage" />
+        <app-avatar
+          class="story-item__header__profile__avatar"
+          :avatar-image="avatarImage"
+          without-line
+        />
         <span class="story-item__header__profile__name" >{{ username }}</span>
       </div>
     </header>

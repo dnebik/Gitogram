@@ -9,6 +9,7 @@ const routes = [
   {
     path: '/stories',
     name: 'stories',
+    props: true,
     component: () => import('@/views/Stories'),
   },
 ];

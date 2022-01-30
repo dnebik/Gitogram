@@ -1,6 +1,10 @@
 <template>
   <div class="user-story">
-    <app-avatar class="user-story__avatar" :avatar-image="avatarImage" />
+    <app-avatar
+      class="user-story__avatar"
+      :avatar-image="avatarImage"
+      :link="link"
+    />
     <span class="user-story__username">{{ username }}</span>
   </div>
 </template>
@@ -14,12 +18,13 @@ export default {
   props: {
     username: { type: String, required: true },
     avatarImage: { type: String, required: true },
+    link: { type: Object, required: true },
   },
 };
 </script>
 
 <style scoped lang="scss">
-@import "../../../assets/styles/sizes";
+@import "src/assets/styles/sizes";
 
 .user-story {
   display: flex;

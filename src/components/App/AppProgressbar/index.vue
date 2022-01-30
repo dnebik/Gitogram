@@ -12,11 +12,23 @@ export default {
     isRunning: { type: Boolean, default: false },
     time: { type: Number, default: 10 * 1000 },
   },
+  data() {
+    return {
+      timers: [],
+    };
+  },
   watch: {
     isRunning: {
-      handler() {
+      handler(value) {
         this.$nextTick(() => {
-          setTimeout(this.toggle, 10);
+          if (value) {
+            this.timers.push(setTimeout(this.toggle, 10));
+          } else {
+            this.toggle();
+            while (this.timers.length) {
+              clearTimeout(this.timers.pop());
+            }
+          }
         });
       },
       immediate: true,
@@ -26,13 +38,14 @@ export default {
     toggle() {
       const line = this.$refs.line.style;
       if (this.isRunning) {
+        line.width = '0px';
         line.transition = `all ${this.time }ms linear`;
-        setTimeout(() => {
+        this.timers.push(setTimeout(() => {
           line.width = '100%';
-          setTimeout(() => {
+          this.timers.push(setTimeout(() => {
             this.$emit('loaded');
-          }, this.time);
-        }, 10);
+          }, this.time));
+        }, 10));
       } else {
         line.transition = '0ms';
         line.width = '0px';

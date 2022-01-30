@@ -35,6 +35,9 @@ export default {
     setLoading(state, { loading }) {
       state.loading = loading;
     },
+    setReadme(state, { readme, index }) {
+      state.data[index].readme = readme;
+    },
     incrementPage(state) {
       state.page++;
     },
@@ -63,6 +66,16 @@ export default {
       } finally {
         commit('setLoading', { loading: false });
       }
+    },
+    async loadReadme({ commit, state }, { index }) {
+      const repoName = state.data[index].name;
+      const ownerLogin = state.data[index].owner.login;
+      const { data } = await this.$app.$api.get(`/repos/${ownerLogin}/${repoName}/readme`, {
+        headers: {
+          accept: 'application/vnd.github.v3.html+json',
+        },
+      });
+      commit('setReadme', { readme: data, index });
     },
   },
 };

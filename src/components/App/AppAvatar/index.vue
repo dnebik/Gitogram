@@ -1,9 +1,8 @@
 <template>
 <div class="avatar">
-  <router-link
-    class="avatar__action avatar__action--link clear-link"
-    v-if="!isButton"
-    :to="link"
+  <component
+    :is="attrs.is"
+    v-bind="attrs"
   >
     <div :class="['avatar__ring', { 'avatar__ring--hidden': withoutLine }]">
       <img
@@ -13,19 +12,7 @@
         ref="img"
       >
     </div>
-  </router-link>
-  <button
-    v-else
-    class="avatar__action avatar__action--button clear-button"
-    type="button"
-    @click="$emit('click')"
-  >
-    <img
-      class="avatar__image"
-      :src="avatarImage"
-      alt="username avatar"
-    >
-  </button>
+  </component>
 </div>
 </template>
 
@@ -39,17 +26,29 @@ export default {
     isButton: { type: Boolean, default: false },
     withoutLine: { type: Boolean, default: false },
     avatarImage: { type: String, default: baseImage },
-  },
-  computed: {
-    link() {
-      // return { name: 'profile', props: { username: this.username } };
-      return { name: 'home' };
-    },
+    link: { type: Object, default: null },
   },
   data() {
     return {
       observer: null,
     };
+  },
+  computed: {
+    attrs() {
+      if (!this.isButton && this.link) {
+        return {
+          is: 'router-link',
+          class: 'avatar__action avatar__action--link clear-link',
+          to: this.link,
+        };
+      }
+      return {
+        is: 'button',
+        class: 'avatar__action avatar__action--button clear-button',
+        type: 'button',
+        'v-on': { onClick: () => this.$emit('click') },
+      };
+    },
   },
   mounted() {
     this.$nextTick(this.startObserve);
@@ -83,6 +82,8 @@ export default {
     @mixin action {
       display: block;
       height: 100%;
+      width: 100%;
+      overflow: hidden;
     }
     &--button { @include action}
     &--link { @include action}
@@ -95,6 +96,20 @@ export default {
     border-radius: 100%;
     overflow: hidden;
     box-sizing: border-box;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--hidden {
+      border: 2px solid transparent !important;
+    }
+  }
+
+  :hover {
+    &__ring {
+      border: 2px solid transparent !important;
+    }
   }
 
   &__image {

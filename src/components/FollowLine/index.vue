@@ -8,12 +8,8 @@
           :key="index"
           :username="repo.owner.login"
           :avatar-image="repo.owner.avatar_url"
+          :link="{ name: 'stories', params: { selected: index } }"
         />
-        <div class="story-line__loader" ref="spinner">
-          <app-icon class="story-line__loader__icon" :stroke="colors.purple">
-            spinner
-          </app-icon>
-        </div>
       </div>
       <div class="story-line__shadow story-line__shadow--right" ref="shadowRight"/>
     </template>
@@ -23,28 +19,20 @@
 <script>
 import AppStory from '@/components/App/AppStory';
 import { mapState } from 'vuex';
-import AppIcon from '@/components/App/AppIcon';
-import colors from '@/assets/styles/colors.scss';
 
 export default {
   name: 'FollowLine',
-  components: { AppIcon, AppStory },
+  components: { AppStory },
   data() {
     return {
       shadowVisibleRange: 20,
-      colors,
     };
   },
   async mounted() {
-    await this.$store.dispatch('repos/load');
-    if (this.repos.data.length > 0) {
-      await this.$nextTick(() => {
-        this.checkShadows();
-
-        const observer = new IntersectionObserver(this.observerHandler, { rootMargin: '100px' });
-        observer.observe(this.$refs.spinner);
-      });
+    if (!this.repos.data.length && !this.repos.error && !this.repos.loading) {
+      await this.$store.dispatch('repos/load');
     }
+    this.checkShadows();
   },
   computed: {
     ...mapState({
@@ -52,11 +40,6 @@ export default {
     }),
   },
   methods: {
-    async observerHandler(event) {
-      if (event[0].isIntersecting) {
-        await this.$store.dispatch('repos/load');
-      }
-    },
     onScroll() {
       this.checkShadows();
     },

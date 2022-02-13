@@ -5,14 +5,18 @@
         <app-icon small>star</app-icon>
         Star
       </div>
-      <div class="stars-and-forks__value stars-and-forks__value--stars">{{ stars }}</div>
+      <div class="stars-and-forks__value stars-and-forks__value--stars">
+        {{ formatter.format(stars) }}
+      </div>
     </div>
     <div class="stars-and-forks__item stars-and-forks__item--forks">
       <div class="stars-and-forks__label stars-and-forks__label--forks">
         <app-icon small>fork</app-icon>
         Forks
       </div>
-      <div class="stars-and-forks__value stars-and-forks__value--forks">{{ forks }}</div>
+      <div class="stars-and-forks__value stars-and-forks__value--forks">
+        {{ formatter.format(forks) }}
+      </div>
     </div>
   </div>
 </template>
@@ -23,9 +27,14 @@ import AppIcon from '@/components/App/AppIcon';
 export default {
   name: 'AppStarsAndForks',
   components: { AppIcon },
+  data() {
+    return {
+      formatter: Intl.NumberFormat('en', { notation: 'compact' }),
+    };
+  },
   props: {
-    stars: { type: String, required: true },
-    forks: { type: Number, required: true },
+    stars: { type: [String, Number], required: true },
+    forks: { type: [String, Number], required: true },
   },
 };
 </script>

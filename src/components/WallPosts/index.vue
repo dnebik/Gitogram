@@ -12,6 +12,8 @@
             :name="item.name"
             :readme-url="`/repos/${item.owner.login}/${item.name}/readme`"
             :issues-url="`/repos/${item.owner.login}/${item.name}/issues`"
+            :stars="item.stargazers_count"
+            :forks="item.forks_count"
           />
         </wall-post>
       </div>

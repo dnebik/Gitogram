@@ -9,7 +9,11 @@
       <div v-else class="repository-info__loading">
         <app-icon :fill="colors.green">loading</app-icon>
       </div>
-      <app-stars-and-forks class="repository-info__stars-and-forks" stars="10k" :forks="4" />
+      <app-stars-and-forks
+        class="repository-info__stars-and-forks"
+        :stars="stars"
+        :forks="forks"
+      />
     </app-sheet>
     <footer v-if="issues && issues.length" class="repository__issues">
       <issues-list :list="issues" />
@@ -41,6 +45,8 @@ export default {
     name: { type: String, required: true },
     readmeUrl: { type: String, required: true },
     issuesUrl: { type: String, required: true },
+    stars: { type: [String, Number], required: true },
+    forks: { type: [String, Number], required: true },
   },
   mounted() {
     this.observer = new IntersectionObserver(this.observerHandler, {

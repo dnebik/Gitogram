@@ -12,6 +12,11 @@ const routes = [
     props: true,
     component: () => import('@/views/Stories'),
   },
+  {
+    path: '/auth',
+    name: 'auth',
+    component: () => import('@/views/Auth'),
+  },
 ];
 
 const router = createRouter({

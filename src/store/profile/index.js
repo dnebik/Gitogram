@@ -22,7 +22,7 @@ export default {
 
       try {
         const { data } = await this.$app.$api.get('/user');
-        commit('setUser', data);
+        commit('setUser', { user: data });
         return data;
       } catch (e) {
         await dispatch('logout');
@@ -31,7 +31,7 @@ export default {
     },
     logout({ commit }) {
       localStorage.clear();
-      commit('setUser', null);
+      commit('setUser', { user: null });
     },
   },
 };

@@ -6,9 +6,9 @@
         <app-icon>home</app-icon>
       </router-link>
       <app-avatar without-line is-button />
-      <a class="line__actions__link line__actions__link--logout">
+      <button @click="logout" class="clear-button line__actions__link line__actions__link--logout">
         <app-icon>sign-out</app-icon>
-      </a>
+      </button>
     </div>
   </div>
 </template>
@@ -20,6 +20,12 @@ import AppAvatar from '@/components/App/AppAvatar';
 export default {
   name: 'HeaderLine',
   components: { AppAvatar, AppIcon },
+  methods: {
+    async logout() {
+      await this.$store.dispatch('profile/logout');
+      await this.$router.push({ name: 'auth' });
+    },
+  },
 };
 </script>
 

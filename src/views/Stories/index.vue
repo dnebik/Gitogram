@@ -2,7 +2,7 @@
   <div class="stories">
     <header-line-stories/>
     <div class="container">
-      <stories-gallery :selected="selected" />
+      <stories-gallery :selected="+selected" />
     </div>
   </div>
 </template>

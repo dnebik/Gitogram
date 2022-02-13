@@ -40,7 +40,7 @@ export default {
     getCode() {
       const url = new URL('https://github.com/login/oauth/authorize');
       url.searchParams.append('client_id', env.client_id);
-      url.searchParams.append('scope', 'repo:status read:user');
+      url.searchParams.append('scope', 'repo,user');
 
       window.location.href = url.toString();
     },

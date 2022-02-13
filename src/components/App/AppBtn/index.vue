@@ -3,8 +3,9 @@
     :disabled="disabled"
     class="clear-button btn"
     :class="{ 'btn--gray': gray }"
+    @click="$emit('click')"
   >
-    <app-icon v-if="loading">loading</app-icon>
+    <app-icon :size="18" v-if="loading">loading</app-icon>
     <slot v-else />
   </button>
 </template>
@@ -15,6 +16,7 @@ import AppIcon from '@/components/App/AppIcon';
 export default {
   name: 'AppBtn',
   components: { AppIcon },
+  emits: ['click'],
   props: {
     disabled: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },

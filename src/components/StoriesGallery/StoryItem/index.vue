@@ -36,35 +36,46 @@
       </div>
     </div>
     <footer class="story-item__footer">
-      <app-follow-btn is-follow />
+      <app-btn
+        :loading="followLoading"
+        :disabled="followLoading"
+        @click="$emit('follow')"
+        :gray="stared" >
+        {{ stared ? 'Unfollow' : 'Follow' }}
+      </app-btn>
     </footer>
   </div>
 </template>
 
 <script>
 import AppProgressbar from '@/components/App/AppProgressbar';
-import AppFollowBtn from '@/components/App/AppFollowBtn';
 import AppAvatar from '@/components/App/AppAvatar';
 import { ContentLoader } from 'vue-content-loader';
+import AppBtn from '@/components/App/AppBtn';
 
 export default {
   name: 'StoryItem',
   components: {
-    AppAvatar, AppFollowBtn, AppProgressbar, ContentLoader,
+    AppBtn,
+    AppAvatar,
+    AppProgressbar,
+    ContentLoader,
   },
-  emits: ['change'],
+  emits: ['change', 'follow'],
   props: {
     avatarImage: { type: String, required: true },
     username: { type: String, required: true },
     active: { type: Boolean, required: false },
     loader: { type: Boolean, default: false },
     readme: { type: String, default: null },
+    stared: { type: Boolean, default: false },
+    followLoading: { type: Boolean, default: false },
   },
   methods: {
     createAttrs(height) {
       return {
         class: 'svg-preserve',
-        speed: '2',
+        speed: 2,
         width: '100%',
         height,
         'view-box': `0 0 100 ${height}`,

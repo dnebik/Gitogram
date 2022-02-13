@@ -41,6 +41,34 @@ export default {
     incrementPage(state) {
       state.page++;
     },
+    setLoadingFollow(state, { repo, value }) {
+      state.data = state.data.map((item) => {
+        if (item.id === repo.id) {
+          return {
+            ...item,
+            stared: {
+              ...(item.stared ? item.stared : {}),
+              loading: value,
+            },
+          };
+        }
+        return item;
+      });
+    },
+    setFollow(state, { repo, value }) {
+      state.data = state.data.map((item) => {
+        if (item.id === repo.id) {
+          return {
+            ...item,
+            stared: {
+              ...(item.stared ? item.stared : {}),
+              status: value,
+            },
+          };
+        }
+        return item;
+      });
+    },
   },
   actions: {
     async load({ commit, dispatch, state }) {
@@ -82,6 +110,20 @@ export default {
           commit('setReadme', { readme: 'Readme отсутствует', index });
         }
       }
+    },
+    async follow({ commit, dispatch }, { repo }) {
+      commit('setLoadingFollow', { repo, value: true });
+      await this.$app.$api.put(`/user/starred/${repo.owner.login}/${repo.name}`);
+      await dispatch('profile/getStared', null, { root: true });
+      commit('setFollow', { repo, value: true });
+      commit('setLoadingFollow', { repo, value: false });
+    },
+    async unfollow({ commit, dispatch }, { repo }) {
+      commit('setLoadingFollow', { repo, value: true });
+      await this.$app.$api.delete(`/user/starred/${repo.owner.login}/${repo.name}`);
+      await dispatch('profile/getStared', null, { root: true });
+      commit('setFollow', { repo, value: false });
+      commit('setLoadingFollow', { repo, value: false });
     },
   },
 };

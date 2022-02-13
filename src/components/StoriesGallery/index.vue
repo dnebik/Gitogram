@@ -13,9 +13,12 @@
         :username="repo.owner.login"
         :avatar-image="repo.owner.avatar_url"
         :active="index === storySelected"
-        @change="storySelected++"
         :loader="index + 1 < repos.data.length"
         :readme="repo.readme"
+        :stared="isStared(repo)"
+        :follow-loading="repo.stared?.loading || false"
+        @change="storySelected++"
+        @follow="toggleFollow(repo)"
       />
     </div>
     <div class="stories-gallery__controls">
@@ -62,6 +65,7 @@ export default {
   computed: {
     ...mapState({
       repos: (state) => state.repos,
+      profile: (state) => state.profile,
     }),
     transform() {
       const gap = this.storySelected * 20;
@@ -70,6 +74,9 @@ export default {
   },
   async mounted() {
     this.storySelected = +this.selected;
+    if (!this.profile.stared) {
+      await this.$store.dispatch('profile/getStared');
+    }
     if (!this.repos.data.length && !this.repos.error && !this.repos.loading) {
       await this.$store.dispatch('repos/load');
     }
@@ -80,6 +87,18 @@ export default {
     window.removeEventListener('resize', this.calcPosition);
   },
   methods: {
+    isStared(repo) {
+      return repo.stared?.status
+        || this.profile.stared?.some((stared) => stared.id === repo.id)
+        || false;
+    },
+    toggleFollow(repo) {
+      if (!this.isStared(repo)) {
+        this.$store.dispatch('repos/follow', { repo });
+      } else {
+        this.$store.dispatch('repos/unfollow', { repo });
+      }
+    },
     calcPosition() {
       const { gallery } = this.$refs;
       const child = gallery.children[0];

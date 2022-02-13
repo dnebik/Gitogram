@@ -34,7 +34,7 @@ export default {
   align-items: center;
 
   &__avatar {
-    height: $storyWidth;
+    height: $storyWidth !important;
   }
 
   &__username {

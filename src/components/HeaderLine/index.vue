@@ -5,7 +5,7 @@
       <router-link class="line__actions__link line__actions__link--home" :to="{ name: 'home' }">
         <app-icon>home</app-icon>
       </router-link>
-      <app-avatar without-line is-button />
+      <app-avatar :avatar-image="userImage" without-line is-button />
       <button @click="logout" class="clear-button line__actions__link line__actions__link--logout">
         <app-icon>sign-out</app-icon>
       </button>
@@ -20,6 +20,11 @@ import AppAvatar from '@/components/App/AppAvatar';
 export default {
   name: 'HeaderLine',
   components: { AppAvatar, AppIcon },
+  computed: {
+    userImage() {
+      return this.$store.state.profile.user.avatar_url;
+    },
+  },
   methods: {
     async logout() {
       await this.$store.dispatch('profile/logout');

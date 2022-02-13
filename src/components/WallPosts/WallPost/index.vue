@@ -1,27 +1,24 @@
 <template>
   <div class="wall-post">
     <header class="wall-post__header">
-      <app-avatar/>
+      <app-avatar without-line :avatar-image="avatar"/>
       <span>{{ username }}</span>
     </header>
     <div class="wall-post__content">
       <slot/>
     </div>
-    <footer class="wall-post__footer">
-      <issues-list/>
-    </footer>
   </div>
 </template>
 
 <script>
 import AppAvatar from '@/components/App/AppAvatar';
-import IssuesList from '@/components/IssuesList';
 
 export default {
   name: 'WallPost',
-  components: { IssuesList, AppAvatar },
+  components: { AppAvatar },
   props: {
     username: { type: String, required: true },
+    avatar: { type: String, required: true },
   },
 };
 </script>
@@ -37,10 +34,6 @@ export default {
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 16px;
-  }
-
-  &__content {
-    margin-bottom: 18px;
   }
 }
 </style>

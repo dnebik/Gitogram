@@ -22,6 +22,8 @@ export default {
 
 <style lang="scss">
 .home {
+  padding-bottom: 100px;
+
   &__header {
     margin-bottom: 32px;
   }

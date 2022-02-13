@@ -6,13 +6,13 @@
         small
         :class="['issues-list__arrow', { 'issues-list__arrow--rotated': isShown }]"
       >
-        arrow
+        issue-arrow
       </app-icon>
     </button>
     <div class="issues-list__issues" ref="issues">
-      <div v-for="(issues, index) in issueList" :key="index" class="issues-list__issue">
-        <span class="issues-list__issue__username">{{issue.username}}</span>
-        <span class="issues-list__issue__text">{{issue.text}}</span>
+      <div v-for="(issue) in list" :key="issue.id" class="issues-list__issue">
+        <span class="issues-list__issue__username">{{issue.user.login}}</span>
+        <span class="issues-list__issue__text">{{issue.title}}</span>
       </div>
     </div>
   </div>
@@ -27,11 +27,10 @@ export default {
   data() {
     return {
       isShown: false,
-      issue: {
-        username: 'Somename',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequuntur corporis doloremque excepturi fugiat impedit laudantium magni minus mollitia, necessitatibus omnis pariatur ratione, sint vel veniam voluptas voluptatum? Et, sit!',
-      },
     };
+  },
+  props: {
+    list: { type: Array, required: true },
   },
   watch: {
     isShown: {
@@ -41,11 +40,6 @@ export default {
         });
       },
       immediate: true,
-    },
-  },
-  computed: {
-    issueList() {
-      return Array.apply(null, { length: 8 }).map(() => this.issue);
     },
   },
   methods: {
@@ -78,8 +72,10 @@ export default {
 
   &__arrow {
     transition: .2s;
+    transform: rotate(180deg);
+
     &--rotated {
-      transform: rotate(180deg);
+      transform: rotate(0deg);
     }
   }
 

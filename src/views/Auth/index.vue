@@ -7,7 +7,7 @@
           <p class="auth__slogan">More than just one repository.<br/>This is our digital world.</p>
         </header>
         <div class="auth__block__content">
-          <app-btn class="auth__btn">
+          <app-btn class="auth__btn" @click="getCode">
             Authorize with github
             <app-icon class="auth__btn__icon" :size="23">github</app-icon>
           </app-btn>
@@ -21,10 +21,46 @@
 <script>
 import AppBtn from '@/components/App/AppBtn';
 import AppIcon from '@/components/App/AppIcon';
+import env from '../../../env';
 
 export default {
   name: 'Auth',
   components: { AppIcon, AppBtn },
+  computed: {
+    code() {
+      return this.$route.query.code || null;
+    },
+  },
+  async created() {
+    if (this.code) {
+      await this.enter();
+    }
+  },
+  methods: {
+    getCode() {
+      const url = new URL('https://github.com/login/oauth/authorize');
+      url.searchParams.append('client_id', env.client_id);
+      url.searchParams.append('scope', 'repo:status read:user');
+
+      window.location.href = url.toString();
+    },
+    async enter() {
+      try {
+        const data = {
+          clientId: env.client_id,
+          code: this.code,
+          clientSecret: env.secret_id,
+        };
+
+        const response = await this.$api.post('https://webdev-api.loftschool.com/github', data);
+        const { token } = response.data;
+        localStorage.setItem('token', token);
+        await this.$router.push({ name: 'home' });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
 };
 </script>
 

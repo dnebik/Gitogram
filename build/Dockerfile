@@ -27,4 +27,4 @@ COPY --from=builder ./app/storybook-static ./storybook-static/
 
 EXPOSE 80
 
-CMD ["sh","-c","serve /app/dist -l 80 & serve /app/storybook-static -l 81"]
+CMD ["sh","-c","serve /app/dist -l 80 -s & serve /app/storybook-static -l 81 -s"]

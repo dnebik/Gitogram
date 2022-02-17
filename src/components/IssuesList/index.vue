@@ -30,7 +30,7 @@ export default {
     };
   },
   props: {
-    list: { type: Array, required: true },
+    list: { type: [Array, Object], required: true },
   },
   watch: {
     isShown: {
@@ -47,7 +47,6 @@ export default {
       const { issues } = this.$refs;
       if (this.isShown) {
         issues.style.maxHeight = '0';
-        console.log(issues.scrollHeight);
         issues.style.maxHeight = `${issues.scrollHeight }px`;
       } else {
         issues.style.maxHeight = '0';

@@ -15,8 +15,8 @@
         :forks="forks"
       />
     </app-sheet>
-    <footer v-if="issues && issues.length" class="repository__issues">
-      <issues-list :list="issues" />
+    <footer v-if="$slots.issues && issues && issues.length" class="repository__issues">
+      <slot name="issues" v-bind="issues"/>
     </footer>
   </div>
 </template>
@@ -26,12 +26,11 @@ import AppSheet from '@/components/App/AppSheet';
 import AppStarsAndForks from '@/components/App/AppStarsAndForks';
 import AppIcon from '@/components/App/AppIcon';
 import colors from '@/assets/styles/colors.scss';
-import IssuesList from '@/components/IssuesList';
 
 export default {
   name: 'RepositoryInfo',
   components: {
-    IssuesList, AppIcon, AppStarsAndForks, AppSheet,
+    AppIcon, AppStarsAndForks, AppSheet,
   },
   data() {
     return {
@@ -82,12 +81,16 @@ export default {
       this.issues = Array.from(data).slice(0, 10);
     },
     async loadReadme() {
-      const { data } = await this.$api.get(this.readmeUrl, {
-        headers: {
-          accept: 'application/vnd.github.v3.html+json',
-        },
-      });
-      this.readme = data;
+      try {
+        const { data } = await this.$api.get(this.readmeUrl, {
+          headers: {
+            accept: 'application/vnd.github.v3.html+json',
+          },
+        });
+        this.readme = data;
+      } catch (e) {
+        this.readme = 'README отсутствует';
+      }
     },
   },
 };

@@ -7,7 +7,7 @@
           <h1 class="profile__title">My profile</h1>
           <profile-info
             :avatar-src="user.avatar_url"
-            :repos="user.public_repos + user.owned_private_repos"
+            :repos="repos.length"
             :follows="stared?.length || 0"
             :name="user.name"
             :login="user.login"
@@ -45,6 +45,9 @@ export default {
       const routeName = this.$route.name;
       return routeName === 'profile_repos' ? 'Repositories' : 'Follows';
     },
+    repos() {
+      return this.$store.state.profile.repositories || [];
+    },
   },
 };
 </script>
@@ -59,11 +62,12 @@ export default {
   &__content-wrapper {
     display: flex;
     flex: 1;
+    width: 100%;
   }
 
   &__profile-content {
     max-width: 380px;
-    padding: 40px 10px 0 0;
+    padding: 40px 50px 0 0;
     position: sticky;
     top: 0;
     width: 100%;
@@ -80,6 +84,7 @@ export default {
     padding: 40px 50px 90px 70px;
     width: 100%;
     position: relative;
+    overflow: hidden;
 
     &:after {
       content: '';

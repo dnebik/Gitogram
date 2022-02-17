@@ -14,7 +14,11 @@
             :issues-url="`/repos/${item.owner.login}/${item.name}/issues`"
             :stars="item.stargazers_count"
             :forks="item.forks_count"
-          />
+          >
+            <template #issues="issues">
+              <issues-list :list="issues" />
+            </template>
+          </repository-info>
         </wall-post>
       </div>
     </div>
@@ -24,10 +28,11 @@
 <script>
 import WallPost from '@/components/WallPosts/WallPost';
 import RepositoryInfo from '@/components/RepositoryInfo';
+import IssuesList from '@/components/IssuesList';
 
 export default {
   name: 'WallPosts',
-  components: { RepositoryInfo, WallPost },
+  components: { IssuesList, RepositoryInfo, WallPost },
   computed: {
     stared() {
       return this.$store.state.profile.stared;

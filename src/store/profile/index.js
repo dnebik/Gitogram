@@ -3,10 +3,14 @@ export default {
   state: () => ({
     user: null,
     stared: null,
+    repositories: null,
   }),
   mutations: {
     setUser(state, { user }) {
       state.user = user;
+    },
+    setRepos(state, { repos }) {
+      state.repositories = repos;
     },
     setStared(state, { stared }) {
       state.stared = stared;
@@ -25,9 +29,11 @@ export default {
       this.$app.$api.defaults.headers.Authorization = `token ${ token }`;
 
       try {
-        const { data } = await this.$app.$api.get('/user');
-        commit('setUser', { user: data });
-        return data;
+        const { data: user } = await this.$app.$api.get('/user');
+        const { data: repos } = await this.$app.$api.get('/user/repos');
+        commit('setRepos', { repos });
+        commit('setUser', { user });
+        return user;
       } catch (e) {
         await dispatch('logout');
         return null;

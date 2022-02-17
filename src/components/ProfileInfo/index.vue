@@ -52,8 +52,11 @@ export default {
 
   &.profile-info--small {
     .profile-info__avatar-wrapper {
-      height: 74px;
-      width: 74px;
+      $size: 74px;
+      min-width: $size;
+      min-height: $size;
+      height: $size;
+      width: $size;
     }
 
     .profile-info__login {
@@ -64,8 +67,11 @@ export default {
 
   &:not(.profile-info--small) {
     .profile-info__avatar-wrapper {
-      height: 90px;
-      width: 90px;
+      $size: 90px;
+      min-width: $size;
+      min-height: $size;
+      height: $size;
+      width: $size;
     }
 
     .profile-info__login {

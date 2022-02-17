@@ -17,6 +17,26 @@ const routes = [
     name: 'auth',
     component: () => import('@/views/Auth'),
   },
+  {
+    path: '/profile',
+    component: () => import('@/views/Profile'),
+    children: [
+      {
+        path: '',
+        redirect: { name: 'profile_repos' },
+      },
+      {
+        path: 'repos',
+        name: 'profile_repos',
+        component: () => import('@/views/Profile/MyRepos'),
+      },
+      {
+        path: 'follows',
+        name: 'profile_follows',
+        component: () => import('@/views/Profile/MyFollows'),
+      },
+    ],
+  },
 ];
 
 const router = createRouter({

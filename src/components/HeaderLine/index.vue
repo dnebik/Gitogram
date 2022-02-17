@@ -5,7 +5,11 @@
       <router-link class="line__actions__link line__actions__link--home" :to="{ name: 'home' }">
         <app-icon>home</app-icon>
       </router-link>
-      <app-avatar :avatar-image="userImage" without-line is-button />
+      <app-avatar
+        :avatar-image="userImage"
+        without-line
+        :link="{ name: 'profile_repos' }"
+      />
       <button @click="logout" class="clear-button line__actions__link line__actions__link--logout">
         <app-icon>sign-out</app-icon>
       </button>

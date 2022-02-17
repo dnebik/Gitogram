@@ -1,7 +1,7 @@
 <template>
   <div class="issues-list">
     <button class="clear-button issues-list__toggle-button" @click="isShown = !isShown">
-      <span class="issues-list__text">{{ isShown ? 'Hide issues' : 'View issues' }}</span>
+      <span class="issues-list__text">{{ isShown ? text.hidden : text.viewed }}</span>
       <app-icon
         small
         :class="['issues-list__arrow', { 'issues-list__arrow--rotated': isShown }]"
@@ -27,6 +27,10 @@ export default {
   data() {
     return {
       isShown: false,
+      text: {
+        viewed: 'Hide issues',
+        hidden: 'View issues',
+      },
     };
   },
   props: {

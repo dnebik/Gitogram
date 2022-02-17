@@ -25,29 +25,34 @@
 <script>
 import TheHeader from '@/components/TheHeader';
 import ProfileInfo from '@/components/ProfileInfo';
+import { computed } from 'vue';
+import store from '@/store';
+import { useRoute } from 'vue-router';
 
 export default {
   name: 'Profile',
   components: { ProfileInfo, TheHeader },
-  async mounted() {
-    if (!this.stared) {
-      await this.$store.dispatch('profile/getStared');
-    }
-  },
-  computed: {
-    user() {
-      return this.$store.state.profile.user;
-    },
-    stared() {
-      return this.$store.state.profile.stared;
-    },
-    routeTitle() {
-      const routeName = this.$route.name;
+  setup() {
+    const route = useRoute();
+
+    const user = computed(() => store.value.state.profile.user);
+    const stared = computed(() => store.value.state.profile.stared);
+    const routeTitle = computed(() => {
+      const routeName = route.name;
       return routeName === 'profile_repos' ? 'Repositories' : 'Follows';
-    },
-    repos() {
-      return this.$store.state.profile.repositories || [];
-    },
+    });
+    const repos = computed(() => store.value.state.profile.repositories || []);
+
+    if (!stared.value) {
+      store.value.dispatch('profile/getStared');
+    }
+
+    return {
+      user,
+      stared,
+      routeTitle,
+      repos,
+    };
   },
 };
 </script>

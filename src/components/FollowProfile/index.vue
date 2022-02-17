@@ -21,27 +21,29 @@
 <script>
 import ProfileInfo from '@/components/ProfileInfo';
 import AppBtn from '@/components/App/AppBtn';
+import { toRefs, computed } from 'vue';
 
 export default {
   name: 'FollowProfile',
   components: { AppBtn, ProfileInfo },
   emits: ['change'],
   props: {
-    name: { type: String, required: true },
-    login: { type: String, default: null },
+    name: { type: String, default: null },
+    login: { type: String, required: true },
     avatarSrc: { type: String, default: null },
     followStatus: { type: String, required: true },
   },
-  computed: {
-    loading() {
-      return this.followStatus === 'loading';
-    },
-    gray() {
-      return this.loading || this.followStatus === 'followed';
-    },
-    text() {
-      return this.followStatus === 'followed' ? 'Unfollow' : 'Follow';
-    },
+  setup(props) {
+    const { followStatus } = toRefs(props);
+    const loading = computed(() => followStatus.value === 'loading');
+    const gray = computed(() => loading.value || followStatus.value === 'followed');
+    const text = computed(() => (followStatus.value === 'followed' ? 'Unfollow' : 'Follow'));
+
+    return {
+      loading,
+      gray,
+      text,
+    };
   },
 };
 </script>

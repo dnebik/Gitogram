@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import requests from '@/plugins/requests';
 import App from './App.vue';
 import router from './router';
-import createStore from './store';
+import { createStore } from './store';
 
 /* eslint-disable */
 import('normalize.css');

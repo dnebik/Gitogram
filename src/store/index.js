@@ -2,15 +2,20 @@ import { createStore as createVuexStore } from 'vuex';
 import repos from '@/store/repos';
 import profile from '@/store/profile';
 
-function createStore(app) {
-  const store = createVuexStore({
+const store = {
+  value: null,
+};
+
+export function createStore(app) {
+  const createdStore = createVuexStore({
     modules: {
       repos,
       profile,
     },
   });
-  store.$app = app.config.globalProperties;
-  return store;
+  store.value = createdStore;
+  createdStore.$app = app.config.globalProperties;
+  return createdStore;
 }
 
-export default createStore;
+export default store;
